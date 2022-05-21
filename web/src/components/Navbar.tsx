@@ -1,13 +1,15 @@
-import {Box, Link, Flex, Button, Heading} from '@chakra-ui/react';
+import {Box, Link, Flex, Button, Heading, HStack} from '@chakra-ui/react';
 import NextLink from 'next/link'; 
 import { useLogoutMutation, useMeQuery} from '../generated/graphql'
 import { isServer } from '../utils/isServer';
 
 interface NavBarProps {
-
+    title?: string, 
+    navColor?: string, 
+    buttonColors?: string
 }
 
-export const NavBar: React.FC<NavBarProps> = ({}) => {
+export const NavBar: React.FC<NavBarProps> = ({title, navColor, buttonColors}) => {
     const [{data, fetching}] = useMeQuery({
         pause: isServer()
     });    
@@ -19,14 +21,14 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
     } else if (!data?.me) {
         //User is not logged in
         body = ( 
-        <>              
+        <HStack>              
             <NextLink href="/login">
-                <Link color="white" > Login </Link>
+                <Button bg={buttonColors}> <Link color="white" > Login</Link></Button>
             </NextLink>
             <NextLink href="/register">
-                <Link color="white" mr={2}> Register </Link>
+                <Button bg={buttonColors}><Link color="white" mr={2}> Register</Link></Button>
             </NextLink> 
-        </> )
+        </HStack> )
     } else {
         //User is logged in 
         body = (
@@ -40,10 +42,10 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
         </> )
     }
     return (
-        <Flex zIndex={1} position='sticky' top={0} bg='tomato' p={4} align='center'>
-            <NextLink href="/">
+        <Flex zIndex={1} position='sticky' top={0} bg={navColor} p={4} align='center'>
+            <NextLink  href="/">
                 <Link>
-                    <Heading> 3 Sides </Heading>
+                    <Heading> {title} </Heading>
                 </Link>
             </NextLink>
             <Box ml={'auto'}> 
