@@ -14,12 +14,15 @@ import cors from 'cors';
 import { ApolloServerPluginLandingPageGraphQLPlayground,
     ApolloServerPluginLandingPageDisabled } from 'apollo-server-core';
 import { mydataSource } from "./dataSource";
+import { Post } from "./entities/Post";
+import { User } from "./entities/User";
 require('dotenv-safe').config();
 
 const main = async () => {
         
     let connection = await mydataSource.initialize();
     connection.runMigrations();
+
 
     const app = express(); 
     let RedisStore = connectRedis(session);

@@ -1,7 +1,7 @@
 import { Field, Int, ObjectType } from "type-graphql";
-import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Post } from "./Post";
-import {Upvote} from "./Upvote"; 
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Resume } from "./Resume";
+
 
 
 @ObjectType()
@@ -31,10 +31,8 @@ export class User extends BaseEntity{
     @Column({type: 'text'}) 
     password!: string; 
 
-    @OneToMany(() => Post, post => post.creator) 
-    posts: Post[];
-
-    @OneToMany(() => Upvote, (upvote) => upvote.user)
-    upvote: Upvote[]; 
+    @OneToOne(() => Resume, resume => resume.creator, {cascade: true})
+    @JoinColumn()
+    resume?: Resume;
 
 }

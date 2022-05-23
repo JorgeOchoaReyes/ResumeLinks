@@ -6,9 +6,9 @@ import { Box } from '@chakra-ui/react';
 interface LayoutProps {
     variant?: WrapperVariant,
     background?: string,
-    title: string, 
-    navColor: string, 
-    buttonColors: string
+    title?: string, 
+    navColor?: string, 
+    buttonColors?: string
 }
 
 export const Layout: React.FC<LayoutProps> = ({
@@ -16,10 +16,8 @@ export const Layout: React.FC<LayoutProps> = ({
     }) => {
 
     return (
-        <Box h={{
-            base: '100%', 
-            lg: "100%",
-            xl: '100%'}} 
+        <Box h={ "100%"}
+            minH={"100vh"}
             bg={background}>
             <NavBar title={title} navColor={navColor} buttonColors={buttonColors} /> 
             <Wrapper  variant={variant}>

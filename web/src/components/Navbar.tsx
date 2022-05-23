@@ -9,7 +9,7 @@ interface NavBarProps {
     buttonColors?: string
 }
 
-export const NavBar: React.FC<NavBarProps> = ({title, navColor, buttonColors}) => {
+export const NavBar: React.FC<NavBarProps> = ({title, navColor="red", buttonColors = "orange"}) => {
     const [{data, fetching}] = useMeQuery({
         pause: isServer()
     });    
@@ -23,10 +23,10 @@ export const NavBar: React.FC<NavBarProps> = ({title, navColor, buttonColors}) =
         body = ( 
         <HStack>              
             <NextLink href="/login">
-                <Button bg={buttonColors}> <Link color="white" > Login</Link></Button>
+                <Button colorScheme={"blackAlpha"} bg={buttonColors}> <Link color="white" > Login</Link></Button>
             </NextLink>
             <NextLink href="/register">
-                <Button bg={buttonColors}><Link color="white" mr={2}> Register</Link></Button>
+                <Button colorScheme={"blackAlpha"} bg={buttonColors}><Link color="white" mr={2}> Register</Link></Button>
             </NextLink> 
         </HStack> )
     } else {
@@ -42,13 +42,17 @@ export const NavBar: React.FC<NavBarProps> = ({title, navColor, buttonColors}) =
         </> )
     }
     return (
-        <Flex zIndex={1} position='sticky' top={0} bg={navColor} p={4} align='center'>
-            <NextLink  href="/">
-                <Link>
-                    <Heading> {title} </Heading>
-                </Link>
-            </NextLink>
-            <Box ml={'auto'}> 
+        <Flex zIndex={1} position='sticky' flexDirection={"row"} justifyContent="space-around" top={0} bg={navColor} p={4} align='center'>
+            <Flex >
+                <NextLink href="/">
+                    <Link>
+                        <Heading> {title ? title : "Home"} </Heading>
+                    </Link>
+                </NextLink>
+            </Flex>
+ 
+            
+            <Box> 
                 {body}
             </Box>
         </Flex>
