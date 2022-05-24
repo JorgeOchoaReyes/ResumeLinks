@@ -1,6 +1,7 @@
-import { type } from "os";
-import { Field,  ObjectType } from "type-graphql";
-import { BaseEntity, Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Field, ObjectType } from "type-graphql";
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Education } from "./Education";
+import { Experience } from "./Experience";
 import { User } from "./User";
 
 @ObjectType()
@@ -26,18 +27,15 @@ export class Resume extends BaseEntity{
     @Field(() => [String])
     @Column("text", {array: true}) 
     skills!: string[]; 
-    
-    @Field(() => [String])
-    @Column("text", {array: true}) 
-    education!: string[]; 
-    
-    @Field(() => [String])
-    @Column("text", {array: true}) 
-    experience!: string[]; 
+
+    @OneToMany(() => Education, education => education.resume, {cascade: true})
+    education?: Education[]
+
+    @OneToMany(() => Experience, experience => experience.resume, {cascade: true})
+    experience?: Experience[]
 
     @OneToOne(() => User, user => user.resume)
-    creator: User; 
-
+    creator?: User; 
+ 
 }
-
 

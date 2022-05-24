@@ -1,4 +1,4 @@
-import {Box, Link, Flex, Button, Heading, HStack} from '@chakra-ui/react';
+import {Box, Link, Flex, Button, Heading, HStack, Image} from '@chakra-ui/react';
 import NextLink from 'next/link'; 
 import { useLogoutMutation, useMeQuery} from '../generated/graphql'
 import { isServer } from '../utils/isServer';
@@ -9,7 +9,7 @@ interface NavBarProps {
     buttonColors?: string
 }
 
-export const NavBar: React.FC<NavBarProps> = ({title, navColor="red", buttonColors = "orange"}) => {
+export const NavBar: React.FC<NavBarProps> = ({title, navColor="#e6f5e5ff", buttonColors = "#379683"}) => {
     const [{data, fetching}] = useMeQuery({
         pause: isServer()
     });    
@@ -27,34 +27,41 @@ export const NavBar: React.FC<NavBarProps> = ({title, navColor="red", buttonColo
             </NextLink>
             <NextLink href="/register">
                 <Button colorScheme={"blackAlpha"} bg={buttonColors}><Link color="white" mr={2}> Register</Link></Button>
-            </NextLink> 
+            </NextLink>
         </HStack> )
     } else {
         //User is logged in 
         body = (
         <>
             <Flex>
-                <Box mr={2}> {data.me.username} </Box>
-                <Button onClick={() => {
+                <Flex align={'center '}>
+                    <Box mr={2}> {data.me.username} </Box>
+                </Flex>
+                <Flex>
+                <Button bg="#379683" onClick={() => {
                     logout();
-                }} isLoading={logoutFetching} variant="link"> logout </Button>
+                }} isLoading={logoutFetching}  textColor={'black'}> logout </Button>
+                </Flex>
             </Flex>  
         </> )
     }
     return (
-        <Flex zIndex={1} position='sticky' flexDirection={"row"} justifyContent="space-around" top={0} bg={navColor} p={4} align='center'>
+        <Flex zIndex={1} position='sticky' flexDirection={"row"} justifyContent="space-around" top={0} bg={navColor} opacity=".95" p={2} align='center'>
             <Flex >
                 <NextLink href="/">
                     <Link>
-                        <Heading> {title ? title : "Home"} </Heading>
+                        <Heading> {title ? title :  <Image 
+                            src="https://firebasestorage.googleapis.com/v0/b/resume-b9fc8.appspot.com/o/logotree.png?alt=media&token=e385afe7-686f-4903-b061-053d08324097"
+                            loading='eager'
+                            h="50"
+                            w="auto"
+                          /> } </Heading>
                     </Link>
                 </NextLink>
-            </Flex>
- 
-            
-            <Box> 
+            </Flex>           
+            <Flex> 
                 {body}
-            </Box>
+            </Flex>
         </Flex>
 
     )

@@ -17,10 +17,11 @@ export const Layout: React.FC<LayoutProps> = ({
 
     return (
         <Box h={ "100%"}
+            w="100%"
             minH={"100vh"}
             bg={background}>
             <NavBar title={title} navColor={navColor} buttonColors={buttonColors} /> 
-            <Wrapper  variant={variant}>
+            <Wrapper variant={variant}>
                 {children}
             </Wrapper>
         </Box >

@@ -2,8 +2,6 @@ import { Field, Int, ObjectType } from "type-graphql";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Resume } from "./Resume";
 
-
-
 @ObjectType()
 @Entity()
 export class User extends BaseEntity{

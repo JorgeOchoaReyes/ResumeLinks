@@ -6,6 +6,7 @@ import { Link, Text, Stack, Box, Heading, Flex, Spacer, Button, CircularProgress
 import { ChevronUpIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import NextLink from 'next/link';
 import {useState} from 'react'; 
+import { Main } from "../components/Main";
 
 interface IndexProps {}
  
@@ -13,12 +14,8 @@ const Index: React.FC<IndexProps> = ({}) => {
     const [variables, setVariables] = useState({limit: 10, cursor: null as null | string});
 
     return (
-        <Layout >
-            <Flex>
-                <Spacer /> 
-                
-            </Flex>             
-
+        <Layout variant="small">
+                <Main />
         </Layout>
     )
 }

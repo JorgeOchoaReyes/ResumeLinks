@@ -5,7 +5,7 @@ import express from "express";
 import {ApolloServer} from 'apollo-server-express';
 import {buildSchema} from 'type-graphql';
 import {PostResolver} from './resolvers/post'; 
-import {HelloResolver} from './resolvers/hello'; 
+import {ResumeResolver} from './resolvers/resume'; 
 import {UserResolver} from './resolvers/user'; 
 import Redis from 'ioredis';
 import session from 'express-session';
@@ -14,14 +14,20 @@ import cors from 'cors';
 import { ApolloServerPluginLandingPageGraphQLPlayground,
     ApolloServerPluginLandingPageDisabled } from 'apollo-server-core';
 import { mydataSource } from "./dataSource";
-import { Post } from "./entities/Post";
 import { User } from "./entities/User";
+import { Resume } from "./entities/Resume";
+import { Experience } from "./entities/Experience";
+import { Education } from "./entities/Education";
 require('dotenv-safe').config();
 
 const main = async () => {
         
     let connection = await mydataSource.initialize();
     connection.runMigrations();
+    // await User.delete({})
+    // await Experience.delete({})
+    // await Education.delete({})
+    // await Resume.delete({})
 
 
     const app = express(); 
@@ -61,7 +67,7 @@ const main = async () => {
  
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [HelloResolver, PostResolver, UserResolver],
+            resolvers: [ResumeResolver, PostResolver, UserResolver],
             validate: false
         }),
         plugins: [
