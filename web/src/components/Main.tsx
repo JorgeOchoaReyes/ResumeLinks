@@ -7,10 +7,6 @@ interface HeaderProps {
 
 }
 
-//To do: 
-//Slow down slide fade animation 
-
-
 const LeftContent = () => {
     return (
             <Flex 
@@ -23,7 +19,7 @@ const LeftContent = () => {
                 >
                 <SlideFade delay={.1} in={true} offsetY='100px'>
                     <Box>
-                            <VStack spacing={8} >
+                            <VStack spacing={6} >
                                 <VStack spacing={2} alignContent='flex-start'>
                                     <Heading fontSize={{ base: '25px', md: '50px', lg: '50px'}} fontWeight='bolder' size='2xl'> Quickly send your resume to anyone! </Heading>
                                     <Text fontSize={{ base: 'auto', md: '20px'}} > With ResumeLinks you can always have your resume updated and ready to be viewed by recruiters. </Text>

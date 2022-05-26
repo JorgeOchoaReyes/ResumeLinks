@@ -56,6 +56,7 @@ class ResumeOutput {
     @Field(() => [Experience], {nullable: true})
     experience?: Experience[]
 
+
 }
 
 @InputType()

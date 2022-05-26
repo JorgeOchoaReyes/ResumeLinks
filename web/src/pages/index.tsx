@@ -1,12 +1,11 @@
 import { Layout } from "../components/Layout";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utils/createUrqlClient";
-import { usePostsQuery, useVoteMutation } from "../generated/graphql";
-import { Link, Text, Stack, Box, Heading, Flex, Spacer, Button, CircularProgress, IconButton } from '@chakra-ui/react';
-import { ChevronUpIcon, ChevronDownIcon } from "@chakra-ui/icons";
-import NextLink from 'next/link';
 import {useState} from 'react'; 
 import { Main } from "../components/Main";
+import { Cards } from "../components/Cards";
+import { FullImg } from "../components/FullImg";
+import { Panels } from "../components/Panel";
 
 interface IndexProps {}
  
@@ -16,6 +15,9 @@ const Index: React.FC<IndexProps> = ({}) => {
     return (
         <Layout variant="small">
                 <Main />
+                <Cards />
+                <FullImg /> 
+                <Panels />
         </Layout>
     )
 }
