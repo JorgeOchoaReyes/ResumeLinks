@@ -37,7 +37,7 @@ import NextLink from 'next/link';
               </Text>
               <Stack spacing="3" shouldWrapChildren>
                 <NextLink href={"/"}>
-                    <Button variant="link">Get Started</Button>
+                    <Button variant="link">Home</Button>
                 </NextLink>
                 <NextLink href="/login">
                     <Button variant="link">Login</Button>

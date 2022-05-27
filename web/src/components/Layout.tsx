@@ -5,7 +5,7 @@ import { Box } from '@chakra-ui/react';
 import { Footer } from './Footer';
 
 interface LayoutProps {
-    variant?: WrapperVariant,
+    variant?: string,
     background?: string,
     title?: string, 
     navColor?: string, 
@@ -20,6 +20,7 @@ export const Layout: React.FC<LayoutProps> = ({
         <Box h={ "100%"}
             w="100%"
             minH={"100vh"}
+            align='center'
             bg={background}>
             <NavBar title={title} navColor={navColor} buttonColors={buttonColors} /> 
             <Wrapper variant={variant}>
