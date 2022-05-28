@@ -90,7 +90,7 @@ export class ResumeResolver {
             }
                         
             let arrayEd = []; 
-            for(let i = 0; i <  input.education.length; i++) {
+            for(let i = 0; i < input.education.length; i++) {
                 const ed = new Education();
                 ed.date = input.education[i].date;
                 ed.description = input.education[i].description; 
@@ -99,14 +99,14 @@ export class ResumeResolver {
                 arrayEd.push(created); 
             }
 
-            let arrayEx= []; 
-            for(let i = 0; i <  input.experience.length; i++) {
-                const ed = new Experience();
-                ed.date = input.experience[i].date;
-                ed.description = input.experience[i].description; 
-                ed.company = input.experience[i].company;
-                const created = await mydataSource.manager.save(ed);
-                arrayEx.push(created); 
+            let arrayExp= []; 
+            for(let i = 0; i < input.experience.length; i++) {
+                const exp = new Experience();
+                exp.date = input.experience[i].date;
+                exp.description = input.experience[i].description; 
+                exp.company = input.experience[i].company;
+                const created = await mydataSource.manager.save(exp);
+                arrayExp.push(created); 
             }
 
             const user = await User.findOne({where: {_id: req.session.userId}});
@@ -116,7 +116,7 @@ export class ResumeResolver {
                 title: input.title,
                 skills: input.skill,
                 education: arrayEd,
-                experience: arrayEx,
+                experience: arrayExp,
                 creator: user ? user : undefined
             }).save(); 
     }

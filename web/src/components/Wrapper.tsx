@@ -14,6 +14,7 @@ const Wrapper: React.FC<WrapperProps> = ({children, variant="regular"}) => {
         if(variant =="landing") {
             display = <Box 
                             h={"100%"}
+                            minH={"100vh"}
                             mx="auto" 
                             maxW={"100%"} 
                             w="100%"> 
