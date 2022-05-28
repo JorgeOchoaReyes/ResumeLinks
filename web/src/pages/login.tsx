@@ -20,7 +20,7 @@ const Login: React.FC<loginProps> = ({}) => {
     const [, login] = useLoginMutation(); 
     const router = useRouter(); 
     return (
-        <Layout variant='auth' background='#8EE4AF'> 
+        <Layout variant='forms' background='#8EE4AF'> 
         <Flex h="100%" aflexDir={"column"} justifyContent="space-around" align={'center'}>
 
             <VStack spacing={70} flexDir={"column"} w="100%" justifyContent="space-evenly" align={'center'}>

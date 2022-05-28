@@ -20,7 +20,7 @@ const Register: React.FC<registerProps> = ({}) => {
     const [, register] = useRegisterMutation(); 
     const router = useRouter(); 
     return (
-        <Layout variant='auth' background='#8EE4AF'> 
+        <Layout variant='forms' background='#8EE4AF'> 
             <Flex h="100%" aflexDir={"column"} justifyContent="space-around" align={'center'}>
 
                 <VStack spacing={70} flexDir={"column"} w="100%" justifyContent="space-evenly" align={'center'}>
@@ -47,21 +47,21 @@ const Register: React.FC<registerProps> = ({}) => {
                                 <FormControl>
                                     <InputField 
                                         name="username"
-                                        placeholder="username"
-                                        label="username" 
+                                        placeholder="Username"
+                                        label="Username" 
                                     /> 
                                     <Box mt={4}>
                                         <InputField 
                                             name="email"
-                                            placeholder="email"
-                                            label="email" 
+                                            placeholder="Email"
+                                            label="Email" 
                                         /> 
                                     </Box>
                                     <Box mt={4}>
                                         <InputField 
                                             name="password"
-                                            placeholder="password"
-                                            label="password" 
+                                            placeholder="Password"
+                                            label="Password" 
                                             type="password"
                                         /> 
                                     </Box>

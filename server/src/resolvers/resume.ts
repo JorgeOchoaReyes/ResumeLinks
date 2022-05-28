@@ -1,4 +1,4 @@
-import {Resolver, Query, Arg, Int, Mutation, Field, InputType, Ctx, FieldResolver, Root, ObjectType} from "type-graphql"; 
+import {Resolver, Query, Arg,Mutation, Field, InputType, Ctx, ObjectType} from "type-graphql"; 
 import { MyContext } from "src/types";
 import { mydataSource } from "../dataSource";
 import { Resume } from "../entities/Resume";

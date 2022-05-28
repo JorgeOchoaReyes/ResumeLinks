@@ -20,7 +20,7 @@ const Wrapper: React.FC<WrapperProps> = ({children, variant="regular"}) => {
                         {children}
                     </Box>
         }
-        else if (variant =="auth") {
+        else if (variant =="forms") {
             display = <Box 
                             h={"100vh"}
                             mx="auto" 

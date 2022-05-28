@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Text, Flex, Heading, VStack, Image, Button, SlideFade, Tooltip } from '@chakra-ui/react';
 import Product from '../utils/growthbook.png';
 import {CheckIcon} from '@chakra-ui/icons'; 
+import NextLink from 'next/link';
 
 interface HeaderProps {
 
@@ -23,9 +24,12 @@ const LeftContent = () => {
                                 <VStack spacing={2} alignContent='flex-start'>
                                     <Heading fontSize={{ base: '25px', md: '50px', lg: '50px'}} fontWeight='bolder' size='2xl'> Quickly send your resume to anyone! </Heading>
                                     <Text fontSize={{ base: 'auto', md: '20px'}} > With ResumeLinks you can always have your resume updated and ready to be viewed by recruiters. </Text>
-                                    <Box>
-                                        <Button textColor="#EDF5E1" colorScheme={'blackAlpha'} zIndex={0} isFullWidth={true} size="lg" bg='#05386B' > Get Started for free! </Button>
-                                    </Box>
+                                    <NextLink href="/create-resume">
+                                        <Box>
+                                            <Button textColor="#EDF5E1" colorScheme={'blackAlpha'} zIndex={0} isFullWidth={true} size="lg" bg='#05386B' > Get Started for free! </Button>
+                                        </Box>
+                                    </NextLink>
+
                                 </VStack>
                                 <Text> <CheckIcon /> Easily Send <CheckIcon /> Customize <CheckIcon /> Update whenever </Text>
                             </VStack>
