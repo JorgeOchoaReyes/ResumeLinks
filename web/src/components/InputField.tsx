@@ -19,12 +19,14 @@ const InputField: React.FC<InputFieldProps> = ({label, textarea, size: _, ...pro
             <FormLabel htmlFor={field.name}> {label} </FormLabel>
             {textarea ? 
                 <Input 
+                as={Textarea}
                 {...field} {...props}
                 id={field.name}
+                bg="white"
                 />
                 :                 <Input 
                 {...field} {...props}
-                id={field.name}
+                id={field.name}  bg="white"
                 />
             }
             {error ? <FormErrorMessage> {error} </FormErrorMessage> : null}
