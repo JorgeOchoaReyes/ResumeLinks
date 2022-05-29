@@ -7,6 +7,7 @@ import InputField from '../components/InputField';
 import { useRouter } from 'next/router';
 import { Layout } from '../components/Layout';
 import { useisAuth } from '../utils/useisAuth';
+import { ResumeInput, useCreateResumeMutation } from '../generated/graphql';
 
 //Create split panel where the left takes care of editing/adding and the right is the generate 
 //resume, upon generating call a handleupdate whcih will update state of parent coponent and send it to sibling 
@@ -16,16 +17,14 @@ import { useisAuth } from '../utils/useisAuth';
 
 const createpost: React.FC<{}> = ({}) => {
     useisAuth(); 
+    const [, createResume] = useCreateResumeMutation(); 
     const router = useRouter(); 
     const initialValues = {
-        name: '',
+        title: '',
         experience: [{description: '', date: '', company: ''}],
         education: [{description: '', date: '', school: ''}],
-        skills: [],
-        expCount: '',
-        edCount: '',
-        skillsCount: ''
-    };
+        skill: []
+    } as ResumeInput;
 
     const [skill, setSkills] = React.useState(''); 
     
@@ -54,12 +53,12 @@ const createpost: React.FC<{}> = ({}) => {
     }
 
     const handleSkills = (e: any, field: any, values: any, setValues: any) => {
-        const skills = [...values.skills];
+        const skills = [...values.skill];
         const operation = e.target.id;
         if(operation == 'add') skills.push(skill);
         else skills.pop(); 
         setSkills(''); 
-        setValues({...values, skills: skills});
+        setValues({...values, skill: skills});
 
         // call formik onChange method
         field.onChange(e);
@@ -76,14 +75,28 @@ const createpost: React.FC<{}> = ({}) => {
                     <Box  w='40%'>
                         <Formik initialValues={initialValues}
                                 onSubmit={async (values, {setErrors}) => {
-                                    alert(JSON.stringify(values))
-                                
+                                    const myvals: ResumeInput = {
+                                        education: values.education, 
+                                        experience: values.experience, 
+                                        title: values.title,
+                                        skill: values.skill
+                                    }; 
+                                    
+                                    const results = await createResume({
+                                        input: myvals
+                                    });
+                                    if(results.error) {
+                                        alert(results.error)
+                                    }              
+                                    alert(results.data?.createResume._id)             
+                                    
+
                         }}>
                         {({isSubmitting, values, errors, touched, setValues}) => (
                             <Form> 
                                 <FormControl>
                                     <InputField 
-                                        name="name"
+                                        name="title"
                                         placeholder="Name...."
                                         label="Name" 
                                     /> 
@@ -129,7 +142,7 @@ const createpost: React.FC<{}> = ({}) => {
                                     <HStack paddingTop="8" justifyContent="space-evenly">
                                         <Field>
                                             {({field}: any) => {
-                                                return <Box mt={4}>
+                                                return <Box >
                                                     <Button
                                                         {...field}
                                                      colorScheme={'blackAlpha'} id="add" 
@@ -155,7 +168,6 @@ const createpost: React.FC<{}> = ({}) => {
                                     </Box>
 
                                     <FieldArray
-                                    
                                         name="education"
                                     >
                                         { () => {
@@ -193,7 +205,7 @@ const createpost: React.FC<{}> = ({}) => {
                                     <HStack paddingTop="8" justifyContent="space-evenly">
                                         <Field>
                                             {({field}: any) => {
-                                                return <Box >
+                                                return <Box>
                                                     <Button
                                                         {...field}
                                                      colorScheme={'blackAlpha'} id="add" 
@@ -219,7 +231,7 @@ const createpost: React.FC<{}> = ({}) => {
                                     </Box>
 
                                     <HStack flexWrap={'wrap'} spacing={4}>
-                                      {values.skills.map((skill, i) => (
+                                      {values.skill.map((skill, i) => (
                                         <Tag
                                           size={'md'}
                                           key={`tag#${i}`}
@@ -234,7 +246,7 @@ const createpost: React.FC<{}> = ({}) => {
                                     </HStack>
 
                                     <InputField
-                                        name={`skills`}
+                                        name={`skill`}
                                         placeholder="Type Skills...."
                                         label="Skills"
                                         value={skill}

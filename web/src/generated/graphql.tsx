@@ -14,6 +14,34 @@ export type Scalars = {
   Float: number;
 };
 
+export type Education = {
+  __typename?: 'Education';
+  _id: Scalars['Float'];
+  date?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  school?: Maybe<Scalars['String']>;
+};
+
+export type EducationInput = {
+  date: Scalars['String'];
+  description: Scalars['String'];
+  school: Scalars['String'];
+};
+
+export type Experience = {
+  __typename?: 'Experience';
+  _id: Scalars['Float'];
+  company?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type ExperienceInput = {
+  company: Scalars['String'];
+  date: Scalars['String'];
+  description: Scalars['String'];
+};
+
 export type FieldError = {
   __typename?: 'FieldError';
   field: Scalars['String'];
@@ -24,13 +52,13 @@ export type Mutation = {
   __typename?: 'Mutation';
   changePassword: UserResponse;
   createPost: Post;
+  createResume: Resume;
   deletePost: Scalars['Boolean'];
   forgotPassword: Scalars['Boolean'];
   login: UserResponse;
   logout: Scalars['Boolean'];
   register: UserResponse;
   updatePost?: Maybe<Post>;
-  vote: Scalars['Boolean'];
 };
 
 
@@ -42,6 +70,11 @@ export type MutationChangePasswordArgs = {
 
 export type MutationCreatePostArgs = {
   input: PostInput;
+};
+
+
+export type MutationCreateResumeArgs = {
+  input: ResumeInput;
 };
 
 
@@ -71,12 +104,6 @@ export type MutationUpdatePostArgs = {
   title?: Maybe<Scalars['String']>;
 };
 
-
-export type MutationVoteArgs = {
-  postId: Scalars['Int'];
-  value: Scalars['Int'];
-};
-
 export type PaginatedPost = {
   __typename?: 'PaginatedPost';
   hasMore: Scalars['Boolean'];
@@ -87,7 +114,6 @@ export type Post = {
   __typename?: 'Post';
   _id: Scalars['Float'];
   createdAt: Scalars['String'];
-  creator: User;
   creatorId: Scalars['Float'];
   points: Scalars['Float'];
   text: Scalars['String'];
@@ -103,10 +129,15 @@ export type PostInput = {
 
 export type Query = {
   __typename?: 'Query';
-  hello: Scalars['String'];
+  findResume?: Maybe<ResumeOutput>;
   me?: Maybe<User>;
   post?: Maybe<Post>;
   posts: PaginatedPost;
+};
+
+
+export type QueryFindResumeArgs = {
+  _id: Scalars['Float'];
 };
 
 
@@ -118,6 +149,33 @@ export type QueryPostArgs = {
 export type QueryPostsArgs = {
   cursor?: Maybe<Scalars['String']>;
   limit: Scalars['Int'];
+};
+
+export type Resume = {
+  __typename?: 'Resume';
+  _id: Scalars['Float'];
+  createdAt: Scalars['String'];
+  skills: Array<Scalars['String']>;
+  title: Scalars['String'];
+  updatedAt: Scalars['String'];
+};
+
+export type ResumeInput = {
+  education: Array<EducationInput>;
+  experience: Array<ExperienceInput>;
+  skill: Array<Scalars['String']>;
+  title: Scalars['String'];
+};
+
+export type ResumeOutput = {
+  __typename?: 'ResumeOutput';
+  _id: Scalars['Float'];
+  createdAt?: Maybe<Scalars['String']>;
+  education?: Maybe<Array<Education>>;
+  experience?: Maybe<Array<Experience>>;
+  skills?: Maybe<Array<Scalars['String']>>;
+  title: Scalars['String'];
+  updatedAt?: Maybe<Scalars['String']>;
 };
 
 export type User = {
@@ -155,12 +213,12 @@ export type ChangePasswordMutationVariables = Exact<{
 
 export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', _id: number, username: string } | null | undefined } };
 
-export type CreatePostMutationVariables = Exact<{
-  input: PostInput;
+export type CreateResumeMutationVariables = Exact<{
+  input: ResumeInput;
 }>;
 
 
-export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', title: string, text: string, updatedAt: string, createdAt: string, points: number, creatorId: number, _id: number } };
+export type CreateResumeMutation = { __typename?: 'Mutation', createResume: { __typename?: 'Resume', _id: number } };
 
 export type ForgotPasswordMutationVariables = Exact<{
   email: Scalars['String'];
@@ -189,33 +247,17 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', _id: number, username: string } | null | undefined } };
 
-export type VoteMutationVariables = Exact<{
-  value: Scalars['Int'];
-  postId: Scalars['Int'];
+export type ResumeQueryVariables = Exact<{
+  _id: Scalars['Float'];
 }>;
 
 
-export type VoteMutation = { __typename?: 'Mutation', vote: boolean };
-
-export type PostQueryVariables = Exact<{
-  _id: Scalars['Int'];
-}>;
-
-
-export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', title: string, text: string, updatedAt: string, createdAt: string, points: number, creatorId: number, _id: number, creator: { __typename?: 'User', username: string, _id: number } } | null | undefined };
+export type ResumeQuery = { __typename?: 'Query', findResume?: { __typename?: 'ResumeOutput', _id: number, createdAt?: string | null | undefined, title: string, skills?: Array<string> | null | undefined, education?: Array<{ __typename?: 'Education', date?: string | null | undefined, description?: string | null | undefined, school?: string | null | undefined }> | null | undefined, experience?: Array<{ __typename?: 'Experience', date?: string | null | undefined, description?: string | null | undefined, company?: string | null | undefined }> | null | undefined } | null | undefined };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', _id: number, username: string } | null | undefined };
-
-export type PostsQueryVariables = Exact<{
-  limit: Scalars['Int'];
-  cursor?: Maybe<Scalars['String']>;
-}>;
-
-
-export type PostsQuery = { __typename?: 'Query', posts: { __typename?: 'PaginatedPost', hasMore: boolean, posts: Array<{ __typename?: 'Post', title: string, text: string, updatedAt: string, createdAt: string, points: number, creatorId: number, _id: number, textSnippet: string, creator: { __typename?: 'User', username: string, _id: number } }> } };
 
 export const RegularErrorFragmentDoc = gql`
     fragment RegularError on FieldError {
@@ -251,22 +293,16 @@ export const ChangePasswordDocument = gql`
 export function useChangePasswordMutation() {
   return Urql.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument);
 };
-export const CreatePostDocument = gql`
-    mutation CreatePost($input: PostInput!) {
-  createPost(input: $input) {
-    title
-    text
-    updatedAt
-    createdAt
-    points
-    creatorId
+export const CreateResumeDocument = gql`
+    mutation CreateResume($input: ResumeInput!) {
+  createResume(input: $input) {
     _id
   }
 }
     `;
 
-export function useCreatePostMutation() {
-  return Urql.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument);
+export function useCreateResumeMutation() {
+  return Urql.useMutation<CreateResumeMutation, CreateResumeMutationVariables>(CreateResumeDocument);
 };
 export const ForgotPasswordDocument = gql`
     mutation ForgotPassword($email: String!) {
@@ -308,35 +344,29 @@ export const RegisterDocument = gql`
 export function useRegisterMutation() {
   return Urql.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument);
 };
-export const VoteDocument = gql`
-    mutation Vote($value: Int!, $postId: Int!) {
-  vote(value: $value, postId: $postId)
-}
-    `;
-
-export function useVoteMutation() {
-  return Urql.useMutation<VoteMutation, VoteMutationVariables>(VoteDocument);
-};
-export const PostDocument = gql`
-    query Post($_id: Int!) {
-  post(_id: $_id) {
-    title
-    text
-    updatedAt
-    createdAt
-    points
-    creatorId
+export const ResumeDocument = gql`
+    query Resume($_id: Float!) {
+  findResume(_id: $_id) {
     _id
-    creator {
-      username
-      _id
+    createdAt
+    title
+    skills
+    education {
+      date
+      description
+      school
+    }
+    experience {
+      date
+      description
+      company
     }
   }
 }
     `;
 
-export function usePostQuery(options: Omit<Urql.UseQueryArgs<PostQueryVariables>, 'query'>) {
-  return Urql.useQuery<PostQuery>({ query: PostDocument, ...options });
+export function useResumeQuery(options: Omit<Urql.UseQueryArgs<ResumeQueryVariables>, 'query'>) {
+  return Urql.useQuery<ResumeQuery>({ query: ResumeDocument, ...options });
 };
 export const MeDocument = gql`
     query Me {
@@ -348,29 +378,4 @@ export const MeDocument = gql`
 
 export function useMeQuery(options?: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'query'>) {
   return Urql.useQuery<MeQuery>({ query: MeDocument, ...options });
-};
-export const PostsDocument = gql`
-    query Posts($limit: Int!, $cursor: String) {
-  posts(limit: $limit, cursor: $cursor) {
-    hasMore
-    posts {
-      title
-      text
-      updatedAt
-      createdAt
-      points
-      creatorId
-      _id
-      textSnippet
-      creator {
-        username
-        _id
-      }
-    }
-  }
-}
-    `;
-
-export function usePostsQuery(options: Omit<Urql.UseQueryArgs<PostsQueryVariables>, 'query'>) {
-  return Urql.useQuery<PostsQuery>({ query: PostsDocument, ...options });
 };

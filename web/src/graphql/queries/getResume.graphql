@@ -1,0 +1,22 @@
+query Resume($_id: Float!) {
+    findResume(_id: $_id) {
+
+        _id
+        createdAt
+        title
+        skills
+
+	    education {
+          date
+          description
+          school
+        }
+
+        experience {
+          date
+          description
+          company
+        }
+
+    }
+}

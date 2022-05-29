@@ -53,21 +53,21 @@ const CardContent: React.FC<CardContentProps> = (data) => {
         <SlideFade delay={.1} in={true} offsetX='100px'>
             <Box>
                 <Card title="Customizable"
-                 img={"https://firebasestorage.googleapis.com/v0/b/resume-b9fc8.appspot.com/o/VALORANT.png?alt=media&token=fa266c0f-cff2-4b51-a7e2-2b95669304ec"}
+                 img={"https://firebasestorage.googleapis.com/v0/b/resume-b9fc8.appspot.com/o/NZQR%20(6).png?alt=media&token=d01eb23c-27a2-40f4-a46b-67c9342221c6"}
                   placements="Custom background, custome colors, and custom fonts! You can add as many fields of experience, or education, along with providign contact info."/>
             </Box>
         </SlideFade>
         <SlideFade delay={.1} in={true} offsetY='100px'>
             <Box>
                 <Card title="Quickly Send"
-                 img={"https://firebasestorage.googleapis.com/v0/b/resume-b9fc8.appspot.com/o/VALORANT.png?alt=media&token=fa266c0f-cff2-4b51-a7e2-2b95669304ec"}
+                 img={"https://firebasestorage.googleapis.com/v0/b/resume-b9fc8.appspot.com/o/NZQR%20(4).png?alt=media&token=d530806e-101d-4dba-ac69-145d49ff4a9e"}
                   placements="At any time you can send your link to employeers with a full resume ready to be reviewed. Employeers can view it at anytime and never lose track of it."/>
             </Box>
         </SlideFade>
         <SlideFade delay={.1} in={true} offsetY='100px'>
             <Box>
                 <Card title="Download as a PDF"
-                 img={"https://firebasestorage.googleapis.com/v0/b/resume-b9fc8.appspot.com/o/VALORANT.png?alt=media&token=fa266c0f-cff2-4b51-a7e2-2b95669304ec"}
+                 img={"https://firebasestorage.googleapis.com/v0/b/resume-b9fc8.appspot.com/o/NZQR%20(5).png?alt=media&token=b27dee05-b5d6-4ae7-82fc-607e76a9963c"}
                   placements="Turn your resumelink into a pdf for your personal records, for employers to download and review, or in case you need to print it out for in-person interviews."/>
             </Box>
         </SlideFade>
