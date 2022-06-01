@@ -29,7 +29,11 @@ export class User extends BaseEntity{
     @Column({type: 'text'}) 
     password!: string; 
 
-    @OneToOne(() => Resume, resume => resume.creator, {cascade: true})
+    @Field({nullable: true})
+    @Column()
+    resumeId?: number;
+
+    @OneToOne(() => Resume, resume => resume.creator)
     @JoinColumn()
     resume?: Resume;
 

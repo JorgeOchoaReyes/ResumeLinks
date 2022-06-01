@@ -22,6 +22,6 @@ export class Education extends BaseEntity{
     @Column()
     description?: string; 
 
-    @ManyToOne(() => Resume, resume => resume.education)
+    @ManyToOne(() => Resume, resume => resume.education, {cascade: true, onDelete: "CASCADE" })
     resume!: Resume
 }

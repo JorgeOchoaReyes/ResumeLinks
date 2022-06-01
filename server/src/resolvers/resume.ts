@@ -1,10 +1,11 @@
-import {Resolver, Query, Arg,Mutation, Field, InputType, Ctx, ObjectType} from "type-graphql"; 
+import {Resolver, Query, Arg,Mutation, Field, InputType, Ctx, ObjectType, UseMiddleware} from "type-graphql"; 
 import { MyContext } from "src/types";
 import { mydataSource } from "../dataSource";
 import { Resume } from "../entities/Resume";
 import { User } from "../entities/User";
 import { Experience } from "../entities/Experience";
 import { Education } from "../entities/Education";
+import { isAuth } from "../middleware/isAuth";
 
 @InputType() 
 class EducationInput  {
@@ -80,11 +81,11 @@ class ResumeInput {
 export class ResumeResolver {
 
     
-    @Mutation ( () => Resume) 
+    @Mutation ( () => Resume, {nullable: true}) 
     async createResume(
         @Arg("input") input: ResumeInput,
         @Ctx() {req}: MyContext
-        ): Promise<Resume> {
+        ): Promise<Resume | null> {
             if(!req.session.userId) {
                 throw new Error("Not authenticated"); 
             }
@@ -110,15 +111,48 @@ export class ResumeResolver {
             }
 
             const user = await User.findOne({where: {_id: req.session.userId}});
+            if(!user) {
+                return null; 
+            }
 
-
-            return await Resume.create({
+            const res = await Resume.create({
                 title: input.title,
                 skills: input.skill,
                 education: arrayEd,
                 experience: arrayExp,
-                creator: user ? user : undefined
-            }).save(); 
+                creatorId: user._id,
+                creator: user
+            }).save();
+
+            user.resumeId = res._id; 
+            //console.log(res._id)
+            await mydataSource.manager.save(user); 
+            
+            return res;
+    }
+
+    @Mutation(() => Boolean)
+    @UseMiddleware(isAuth)
+    async deleteResume(
+        @Ctx() {req}: MyContext
+    ): Promise<Boolean> {
+
+        //how to delte OTM <=> MTO <=> OTO relations 
+        try {
+            const user = await User.findOne({where: {_id: req.session.userId}}); 
+            console.log(user?.resumeId)
+            if(!user || !user.resumeId) return false;
+            const id = user.resumeId;
+            user.resumeId = -1; 
+            mydataSource.manager.save(user); 
+            await Resume.delete(id);
+            return true; 
+        }
+        catch (err) {
+            console.log(err); 
+            return false; 
+        }
+
     }
 
     @Query(() => ResumeOutput, {nullable: true})

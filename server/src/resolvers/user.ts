@@ -61,7 +61,8 @@ export class UserResolver {
                 {
                     username: options.username,
                     email: options.email, 
-                    password: hashedPassword
+                    password: hashedPassword,
+                    resumeId: -1
                 }
             ).returning('*').execute();
             user =  res.raw[0];
@@ -79,7 +80,6 @@ export class UserResolver {
 
         req.session.userId = user._id; 
 
-        console.log(req.session); 
         
         return {user};
     }

@@ -15,6 +15,7 @@ const Resume = ({}) => {
       _id: intId
     }
   }); 
+  
 
 
   if(fetching) {

@@ -28,7 +28,7 @@ const main = async () => {
     // await Experience.delete({})
     // await Education.delete({})
     // await Resume.delete({})
-
+ 
 
     const app = express(); 
     let RedisStore = connectRedis(session);
