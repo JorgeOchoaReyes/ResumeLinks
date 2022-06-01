@@ -145,7 +145,7 @@ export class ResumeResolver {
             const id = user.resumeId;
             user.resumeId = -1; 
             mydataSource.manager.save(user); 
-            await Resume.delete(id);
+            let results = await Resume.delete(id);
             return true; 
         }
         catch (err) {
