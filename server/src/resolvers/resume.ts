@@ -193,7 +193,7 @@ export class ResumeResolver {
                 arrayEd.push(created); 
             }
 
-            let arrayExp= []; 
+            let arrayExp= [];   
             for(let i = 0; i < input.experience.length; i++) {
                 const exp = new Experience();
                 exp.date = input.experience[i].date;
