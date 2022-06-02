@@ -28,18 +28,15 @@ export class Resume extends BaseEntity{
     @Column("text", {array: true}) 
     skills!: string[]; 
 
-    @OneToMany(() => Education, education => education.resume, {onDelete: "CASCADE"})
+    @OneToMany(() => Education, education => education.resume, {onDelete: "CASCADE", nullable: true})
     education?: Education[]
 
-    @OneToMany(() => Experience, experience => experience.resume, {onDelete: "CASCADE"})
+    @OneToMany(() => Experience, experience => experience.resume, {onDelete: "CASCADE", nullable: true})
     experience?: Experience[]
 
     @Field(() => Number)
     @Column("int")
     creatorId?: number; 
-
-    @OneToOne(() => User, user => user.resume, {cascade: true, onDelete: "CASCADE" })
-    creator?: User; 
  
 }
 

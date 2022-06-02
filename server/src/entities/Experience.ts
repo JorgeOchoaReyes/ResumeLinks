@@ -23,7 +23,7 @@ export class Experience extends BaseEntity{
     @Column()
     description?: string; 
 
-    @ManyToOne(() => Resume, resume => resume.experience, {cascade: true, onDelete: "CASCADE" })
+    @ManyToOne(() => Resume, resume => resume.experience, {onDelete: "CASCADE", nullable: true})
     resume?: Resume
 
 }
