@@ -33,8 +33,4 @@ export class User extends BaseEntity{
     @Column()
     resumeId?: number;
 
-    @OneToOne(() => Resume, resume => resume.creator)
-    @JoinColumn()
-    resume?: Resume;
-
 }

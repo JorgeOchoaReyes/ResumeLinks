@@ -112,6 +112,7 @@ export class ResumeResolver {
 
             const user = await User.findOne({where: {_id: req.session.userId}});
             if(!user) {
+                console.log("User does not exist")
                 return null; 
             }
 
@@ -120,8 +121,7 @@ export class ResumeResolver {
                 skills: input.skill,
                 education: arrayEd,
                 experience: arrayExp,
-                creatorId: user._id,
-                creator: user
+                creatorId: user._id
             }).save();
 
             user.resumeId = res._id; 
@@ -140,19 +140,82 @@ export class ResumeResolver {
         //how to delte OTM <=> MTO <=> OTO relations 
         try {
             const user = await User.findOne({where: {_id: req.session.userId}}); 
-            console.log(user?.resumeId)
             if(!user || !user.resumeId) return false;
             const id = user.resumeId;
-            user.resumeId = -1; 
-            mydataSource.manager.save(user); 
-            let results = await Resume.delete(id);
-            return true; 
+            try{
+                console.log(id);
+                await Resume.delete(id);
+                user.resumeId = -1; 
+                mydataSource.manager.save(user); 
+                return true; 
+            } catch (err) {
+                return false;
+            }
         }
         catch (err) {
-            console.log(err); 
             return false; 
         }
 
+    }
+
+    @Mutation(() => ResumeOutput, {nullable: true})
+    @UseMiddleware(isAuth)
+    async editResume(
+        @Arg("input") input: ResumeInput,
+        @Ctx() {req}: MyContext
+    ): Promise<ResumeOutput | undefined> {
+        let res; 
+        const user = await User.findOne({where: {_id: req.session.userId}}); 
+        if(!user || !user.resumeId) return undefined; 
+        
+        try {
+            const id = user.resumeId;
+            try{
+                await Resume.delete(id);
+                user.resumeId = -1; 
+                mydataSource.manager.save(user);  
+                res = true; 
+            } catch (err) {
+               res = false; 
+            }
+        } catch (err) { 
+            res = false 
+        }
+
+        if(res == true) {
+            let arrayEd = []; 
+            for(let i = 0; i < input.education.length; i++) {
+                const ed = new Education();
+                ed.date = input.education[i].date;
+                ed.description = input.education[i].description; 
+                ed.school = input.education[i].school;
+                const created = await mydataSource.manager.save(ed);
+                arrayEd.push(created); 
+            }
+
+            let arrayExp= []; 
+            for(let i = 0; i < input.experience.length; i++) {
+                const exp = new Experience();
+                exp.date = input.experience[i].date;
+                exp.description = input.experience[i].description; 
+                exp.company = input.experience[i].company;
+                const created = await mydataSource.manager.save(exp);
+                arrayExp.push(created); 
+            }
+
+            const res = await Resume.create({
+                title: input.title,
+                skills: input.skill,
+                education: arrayEd,
+                experience: arrayExp,
+                creatorId: user._id
+            }).save();
+
+            user.resumeId = res._id; 
+            await mydataSource.manager.save(user); 
+            return res; 
+        } 
+        return undefined; 
     }
 
     @Query(() => ResumeOutput, {nullable: true})
