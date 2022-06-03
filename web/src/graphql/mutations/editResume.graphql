@@ -1,0 +1,21 @@
+mutation editResume ($input: ResumeInput!) {
+    editResume(input: $input) {
+    _id
+    createdAt
+    title
+    
+    skills
+ 
+	education {
+    date
+    description
+    school
+  }
+    
+    experience {
+    date
+    description
+    company
+  }
+    }
+}

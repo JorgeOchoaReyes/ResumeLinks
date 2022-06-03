@@ -52,8 +52,10 @@ export type Mutation = {
   __typename?: 'Mutation';
   changePassword: UserResponse;
   createPost: Post;
-  createResume: Resume;
+  createResume?: Maybe<Resume>;
   deletePost: Scalars['Boolean'];
+  deleteResume: Scalars['Boolean'];
+  editResume?: Maybe<ResumeOutput>;
   forgotPassword: Scalars['Boolean'];
   login: UserResponse;
   logout: Scalars['Boolean'];
@@ -80,6 +82,11 @@ export type MutationCreateResumeArgs = {
 
 export type MutationDeletePostArgs = {
   _id: Scalars['Int'];
+};
+
+
+export type MutationEditResumeArgs = {
+  input: ResumeInput;
 };
 
 
@@ -155,6 +162,7 @@ export type Resume = {
   __typename?: 'Resume';
   _id: Scalars['Float'];
   createdAt: Scalars['String'];
+  creatorId: Scalars['Float'];
   skills: Array<Scalars['String']>;
   title: Scalars['String'];
   updatedAt: Scalars['String'];
@@ -183,6 +191,7 @@ export type User = {
   _id: Scalars['Int'];
   createdAt: Scalars['String'];
   email: Scalars['String'];
+  resumeId?: Maybe<Scalars['Float']>;
   updatedAt: Scalars['String'];
   username: Scalars['String'];
 };
@@ -218,7 +227,19 @@ export type CreateResumeMutationVariables = Exact<{
 }>;
 
 
-export type CreateResumeMutation = { __typename?: 'Mutation', createResume: { __typename?: 'Resume', _id: number } };
+export type CreateResumeMutation = { __typename?: 'Mutation', createResume?: { __typename?: 'Resume', _id: number } | null | undefined };
+
+export type DeleteResumeMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DeleteResumeMutation = { __typename?: 'Mutation', deleteResume: boolean };
+
+export type EditResumeMutationVariables = Exact<{
+  input: ResumeInput;
+}>;
+
+
+export type EditResumeMutation = { __typename?: 'Mutation', editResume?: { __typename?: 'ResumeOutput', _id: number, createdAt?: string | null | undefined, title: string, skills?: Array<string> | null | undefined, education?: Array<{ __typename?: 'Education', date?: string | null | undefined, description?: string | null | undefined, school?: string | null | undefined }> | null | undefined, experience?: Array<{ __typename?: 'Experience', date?: string | null | undefined, description?: string | null | undefined, company?: string | null | undefined }> | null | undefined } | null | undefined };
 
 export type ForgotPasswordMutationVariables = Exact<{
   email: Scalars['String'];
@@ -303,6 +324,39 @@ export const CreateResumeDocument = gql`
 
 export function useCreateResumeMutation() {
   return Urql.useMutation<CreateResumeMutation, CreateResumeMutationVariables>(CreateResumeDocument);
+};
+export const DeleteResumeDocument = gql`
+    mutation deleteResume {
+  deleteResume
+}
+    `;
+
+export function useDeleteResumeMutation() {
+  return Urql.useMutation<DeleteResumeMutation, DeleteResumeMutationVariables>(DeleteResumeDocument);
+};
+export const EditResumeDocument = gql`
+    mutation editResume($input: ResumeInput!) {
+  editResume(input: $input) {
+    _id
+    createdAt
+    title
+    skills
+    education {
+      date
+      description
+      school
+    }
+    experience {
+      date
+      description
+      company
+    }
+  }
+}
+    `;
+
+export function useEditResumeMutation() {
+  return Urql.useMutation<EditResumeMutation, EditResumeMutationVariables>(EditResumeDocument);
 };
 export const ForgotPasswordDocument = gql`
     mutation ForgotPassword($email: String!) {
