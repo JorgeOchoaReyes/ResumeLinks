@@ -34,9 +34,11 @@ export const NavBar: React.FC<NavBarProps> = ({title, navColor="#e6f5e5ff", butt
         body = (
         <>
             <Flex>
-                <Flex align={'center '}>
-                    <Box mr={2}> {data.me.username} </Box>
-                </Flex>
+                <NextLink href="/settings">
+                    <Flex align={'center '}>
+                        <Box mr={2}> <Link mr={2}> {data.me.username} </Link> </Box>
+                    </Flex>
+                </NextLink>
                 <Flex>
                 <Button bg="#379683" onClick={() => {
                     logout();

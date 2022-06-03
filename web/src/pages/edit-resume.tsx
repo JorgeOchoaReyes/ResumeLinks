@@ -7,17 +7,14 @@ import InputField from '../components/InputField';
 import { useRouter } from 'next/router';
 import { Layout } from '../components/Layout';
 import { useisAuth } from '../utils/useisAuth';
-import { ResumeInput, useCreateResumeMutation } from '../generated/graphql';
+import { ResumeInput, useCreateResumeMutation, useEditResumeMutation, useResumeQuery } from '../generated/graphql';
 
-//Create split panel where the left takes care of editing/adding and the right is the generate 
-//resume, upon generating call a handleupdate whcih will update state of parent coponent and send it to sibling 
-//component 
-
-//  P => L( handleParentStateUpdate() ) && R(paremt.state)
 
 const createpost: React.FC<{}> = ({}) => {
     useisAuth(); 
-    const [, createResume] = useCreateResumeMutation(); 
+    const [, editResume] = useEditResumeMutation(); 
+   
+
     const router = useRouter(); 
     const initialValues = {
         title: '',
@@ -81,15 +78,7 @@ const createpost: React.FC<{}> = ({}) => {
                                         title: values.title,
                                         skill: values.skill
                                     }; 
-                                    
-                                    const results = await createResume({
-                                        input: myvals
-                                    });
-                                    if(results.error) {
-                                        alert(results.error)
-                                    }              
-                                    alert(results.data?.createResume?._id)             
-                                    
+                                                                      
 
                         }}>
                         {({isSubmitting, values, errors, touched, setValues}) => (
