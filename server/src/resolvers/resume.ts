@@ -76,11 +76,8 @@ class ResumeInput {
 
 }
 
-
 @Resolver(Resume) 
-export class ResumeResolver {
-
-    
+export class ResumeResolver {   
     @Mutation ( () => Resume, {nullable: true}) 
     async createResume(
         @Arg("input") input: ResumeInput,

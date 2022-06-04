@@ -66,7 +66,7 @@ const createpost: React.FC<{}> = ({}) => {
             <Flex h="100%" aflexDir={"column"} justifyContent="space-around" align={'center'} paddingBottom={10}>
                 <VStack spacing={10} flexDir={"column"} w="100%" justifyContent="space-evenly" align={'center'}>
                     <Box textColor="#05386B">
-                        <Text fontWeight={'bolder'} fontSize={{base: '15', md: '34'}}> Create Resume </Text>
+                        <Text fontWeight={'bolder'} fontSize={{base: '15', md: '34'}}> Edit Resume </Text>
                     </Box>
 
                     <Box  w='40%'>

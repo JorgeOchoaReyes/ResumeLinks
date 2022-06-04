@@ -35,13 +35,13 @@ const Resume: React.FC<ResumeProps> = ({intId}) => {
      <Flex w="100%" minH="100vh" h="100%" flexDirection="column">
               <Box >
                   <Flex flexDir='column' align="center">
-                      <Image 
+                      {/* <Image 
                           src="https://firebasestorage.googleapis.com/v0/b/dota2-bab31.appspot.com/o/Abaddon_icon.png?alt=media&token=18adc081-96b5-4b96-a5ff-65151b00cca5"
                           loading='eager'
                           borderRadius='100%'
                           w={150}
                           h={150}
-                      />
+                      /> */}
                       <Heading> {data?.findResume.title} </Heading>
                   </Flex>
                   <Box w="100%" borderColor='black' paddingBottom={10} >

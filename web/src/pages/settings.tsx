@@ -8,6 +8,8 @@ import { createUrqlClient } from '../utils/createUrqlClient';
 import { Text } from '@chakra-ui/react';
 import { FaRegObjectUngroup } from 'react-icons/fa';
 import Resume from '../components/Resume';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 
 interface settingsProps {
 
@@ -15,6 +17,7 @@ interface settingsProps {
 
 const settings: React.FC<settingsProps> = ({}) => {
     useisAuth(); 
+    const router = useRouter(); 
     const [, deleteResume] = useDeleteResumeMutation(); 
     const [{data: me, fetching: fetchingMe}] = useMeQuery(); 
     const [resme, setResume] = React.useState({}); 
@@ -42,13 +45,29 @@ const settings: React.FC<settingsProps> = ({}) => {
                 <VStack> 
                     <Text> Your Resume: </Text> 
                     <HStack>
-                        <Button colorScheme={"blackAlpha"} bg="yellow"> Edit Resume </Button> 
-                        <Button colorScheme={"blackAlpha"} bg="red"> Delete Resume </Button> 
+                        {me?.me?.resumeId == -1 ? 
+                                <>
+                                    <NextLink href="/create-resume">
+                                        <Button colorScheme={"blackAlpha"} bg="green"> Create Resume </Button> 
+                                    </NextLink>
+                                </>
+                            : 
+                                <>
+                                 <NextLink href="/edit-resume">
+                                     <Button colorScheme={"blackAlpha"} bg="yellow"> Edit Resume </Button> 
+                                 </NextLink>
+                                 <Button onClick={() => {
+                                    deleteResume();
+                                    router.push('/')
+                                     }} colorScheme={"blackAlpha"} bg="red"> Delete Resume </Button> 
+                                </>
+                        }
                     </HStack>
                 </VStack>
 
             </Heading>
-            <Resume intId={me!.me!.resumeId!} />
+            {me?.me?.resumeId == -1 ? <Center h="100vh" fontSize={'xl'} fontWeight={"bolder"}> You dont have a resume yet. </Center> : <Resume intId={me.me.resumeId!} />}
+
         </Layout>
     );
 }
