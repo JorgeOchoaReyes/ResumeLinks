@@ -10,8 +10,6 @@ import { Panels } from "../components/Panel";
 interface IndexProps {}
  
 const Index: React.FC<IndexProps> = ({}) => {
-    const [variables, setVariables] = useState({limit: 10, cursor: null as null | string});
-
     return (
         <Layout variant="landing">
                 <Main />

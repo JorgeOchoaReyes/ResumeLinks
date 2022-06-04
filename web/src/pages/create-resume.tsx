@@ -59,8 +59,6 @@ const createpost: React.FC<{}> = ({}) => {
         else skills.pop(); 
         setSkills(''); 
         setValues({...values, skill: skills});
-
-        // call formik onChange method
         field.onChange(e);
     }
 
@@ -88,7 +86,7 @@ const createpost: React.FC<{}> = ({}) => {
                                     if(results.error) {
                                         alert(results.error)
                                     }              
-                                    alert(results.data?.createResume?._id)             
+                                    router.push(`/resume/${results.data?.createResume?._id}`)         
                                     
 
                         }}>

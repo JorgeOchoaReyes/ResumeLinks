@@ -46,13 +46,14 @@ const RightContent = () => {
             w="full" 
             h="full" 
             p="10"  
+            paddingRight={{base: '0px', md: "200px"}}
             justifyContent='space-around'
             alignItems='center'>
             <SlideFade delay={.1} in={true} offsetX='100px'>
                 <Box>
                     <Image   
                     useMap='#workmap'
-                            src={Product.src} 
+                            src={"https://firebasestorage.googleapis.com/v0/b/resume-b9fc8.appspot.com/o/slannt.png?alt=media&token=5613df29-9c80-4238-99fd-526e4a54e989"} 
                             alt='Company Logo'/>
                 </Box>
             </SlideFade>

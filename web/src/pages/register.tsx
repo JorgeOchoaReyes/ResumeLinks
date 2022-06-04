@@ -32,7 +32,7 @@ const Register: React.FC<registerProps> = ({}) => {
                                 onSubmit={async (values, {setErrors}) => {
                                     //this issue is caused beacuse of our login/register query/mutation has changed
                                     const response = await register({options: values}); // make sure data values matches the mutation call
-                                    console.log(response); 
+                                    console.log(values); 
                                     if(response.data?.register.errors){
                                         setErrors(toErrorMap(response.data.register.errors));
                                     } else if (response.data?.register.user) {

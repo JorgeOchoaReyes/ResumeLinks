@@ -22,7 +22,7 @@ export const FullImg: React.FC<AchievementsProps> = ({}) => {
                 <Flex w="75%" align="center">
                     <Image 
                     boxShadow="0 6px 6px hsl(0deg 0% 0% / 0.3)"
-                        src={"https://firebasestorage.googleapis.com/v0/b/resume-b9fc8.appspot.com/o/VALORANT.png?alt=media&token=fa266c0f-cff2-4b51-a7e2-2b95669304ec"}
+                        src={"https://firebasestorage.googleapis.com/v0/b/resume-b9fc8.appspot.com/o/design.jpg?alt=media&token=435b2ae2-0d85-4b84-9dab-0eb500e9dbdc"}
                         alt="Achivements"
                         />
                 </Flex>
