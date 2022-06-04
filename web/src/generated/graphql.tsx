@@ -210,9 +210,9 @@ export type UsernamePasswordInput = {
 
 export type RegularErrorFragment = { __typename?: 'FieldError', field: string, message: string };
 
-export type RegularUserFragment = { __typename?: 'User', _id: number, username: string };
+export type RegularUserFragment = { __typename?: 'User', _id: number, username: string, resumeId?: number | null | undefined };
 
-export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', _id: number, username: string } | null | undefined };
+export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', _id: number, username: string, resumeId?: number | null | undefined } | null | undefined };
 
 export type ChangePasswordMutationVariables = Exact<{
   token: Scalars['String'];
@@ -220,7 +220,7 @@ export type ChangePasswordMutationVariables = Exact<{
 }>;
 
 
-export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', _id: number, username: string } | null | undefined } };
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', _id: number, username: string, resumeId?: number | null | undefined } | null | undefined } };
 
 export type CreateResumeMutationVariables = Exact<{
   input: ResumeInput;
@@ -254,7 +254,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', _id: number, username: string } | null | undefined } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', _id: number, username: string, resumeId?: number | null | undefined } | null | undefined } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -266,7 +266,7 @@ export type RegisterMutationVariables = Exact<{
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', _id: number, username: string } | null | undefined } };
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', _id: number, username: string, resumeId?: number | null | undefined } | null | undefined } };
 
 export type ResumeQueryVariables = Exact<{
   _id: Scalars['Float'];
@@ -278,7 +278,7 @@ export type ResumeQuery = { __typename?: 'Query', findResume?: { __typename?: 'R
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', _id: number, username: string } | null | undefined };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', _id: number, username: string, resumeId?: number | null | undefined } | null | undefined };
 
 export const RegularErrorFragmentDoc = gql`
     fragment RegularError on FieldError {
@@ -290,6 +290,7 @@ export const RegularUserFragmentDoc = gql`
     fragment RegularUser on User {
   _id
   username
+  resumeId
 }
     `;
 export const RegularUserResponseFragmentDoc = gql`
