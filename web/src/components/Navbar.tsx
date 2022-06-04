@@ -40,7 +40,7 @@ export const NavBar: React.FC<NavBarProps> = ({title, navColor="#e6f5e5ff", butt
                     </Flex>
                 </NextLink>
                 <Flex>
-                <Button bg="#379683" onClick={() => {
+                <Button bg="#379683" colorScheme={"blackAlpha"} onClick={() => {
                     logout();
                 }} isLoading={logoutFetching}  textColor={'black'}> logout </Button>
                 </Flex>

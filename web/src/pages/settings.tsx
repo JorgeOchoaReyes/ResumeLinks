@@ -1,28 +1,26 @@
-import { Center, CircularProgress, Heading, useMergeRefs } from '@chakra-ui/react';
+import { Button, Center, CircularProgress, Heading, HStack, useMergeRefs, VStack } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import { Layout } from '../components/Layout';
-import { useDeleteResumeMutation, useMeQuery, useResumeQuery } from '../generated/graphql';
+import {  useDeleteResumeMutation, useMeQuery, useResumeQuery } from '../generated/graphql';
 import { useisAuth } from '../utils/useisAuth';
 import { withUrqlClient } from 'next-urql';
 import { createUrqlClient } from '../utils/createUrqlClient';
+import { Text } from '@chakra-ui/react';
+import { FaRegObjectUngroup } from 'react-icons/fa';
+import Resume from '../components/Resume';
 
 interface settingsProps {
 
 }
 
 const settings: React.FC<settingsProps> = ({}) => {
-    const [id, setId] = React.useState(-1); 
     useisAuth(); 
     const [, deleteResume] = useDeleteResumeMutation(); 
     const [{data: me, fetching: fetchingMe}] = useMeQuery(); 
-    const [{data: resume, fetching: fetchingResume}] = useResumeQuery({
-        pause: id === -1,
-        variables: {
-          _id: id
-        }
-    }); 
+    const [resme, setResume] = React.useState({}); 
 
-    if(fetchingMe || fetchingResume) {
+
+    if(fetchingMe) {
         return (
             <Layout>
                 <Center h="100vh" textColor='black' fontSize='xl'> <CircularProgress m='auto' isIndeterminate color='green.300' />  </Center>
@@ -30,24 +28,27 @@ const settings: React.FC<settingsProps> = ({}) => {
         )
     }
     
-    if(!me?.me || !resume?.findResume) {
-          return (
-              <Layout>
-                  <Center h="100vh" textColor='black' fontSize='xl'> Error 404: No Data Was Not Found. :{'('} Try again. {id} </Center>
-              </Layout>
-          )
+    if(!me?.me) {
+        return (
+            <Layout>
+                <Center h="100vh" textColor='black' fontSize='xl'> Error 404: No Data Was Not Found. :{'('} Try again. </Center>
+            </Layout>
+         )
     }
 
-    useEffect(() => {
-        const num: number = me!.me!._id
-        setId(num); 
-    }, [fetchingMe])
-
     return (
-        <Layout>
-            <Heading>
-                
+        <Layout background="#8EE4AF">
+            <Heading paddingBottom="10px">
+                <VStack> 
+                    <Text> Your Resume: </Text> 
+                    <HStack>
+                        <Button colorScheme={"blackAlpha"} bg="yellow"> Edit Resume </Button> 
+                        <Button colorScheme={"blackAlpha"} bg="red"> Delete Resume </Button> 
+                    </HStack>
+                </VStack>
+
             </Heading>
+            <Resume intId={me!.me!.resumeId!} />
         </Layout>
     );
 }
