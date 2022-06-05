@@ -12,14 +12,14 @@ export class User extends BaseEntity{
     @CreateDateColumn()
     createdAt: Date;   
 
-    @Field(() => String)
+    @Field(() => String) 
     @UpdateDateColumn()
     updatedAt: Date;   
 
     @Field()
     @Column({unique: true}) 
     username!: string; 
-
+ 
     @Field()
     @Column({unique: true}) 
     email!: string; 

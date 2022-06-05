@@ -16,7 +16,7 @@ export class Education extends BaseEntity{
     
     @Field(() => String, {nullable: true})
     @Column()
-    school?: string;
+    school?: string; 
 
     @Field(() => String, {nullable: true})
     @Column()

@@ -9,7 +9,7 @@ export class Experience extends BaseEntity{
 
     @Field()
     @PrimaryGeneratedColumn()
-    _id!: number; 
+    _id!: number;  
     
     @Field(() => String, {nullable: true})
     @Column()

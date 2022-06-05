@@ -6,7 +6,7 @@ import { Experience } from "./Experience";
 @ObjectType()
 @Entity()
 export class Resume extends BaseEntity{
-
+ 
     @Field()
     @PrimaryGeneratedColumn()
     _id!: number; 

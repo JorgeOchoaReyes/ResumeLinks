@@ -19,10 +19,10 @@ const main = async () => {
         
     let connection = await mydataSource.initialize();
     connection.runMigrations();
- 
+  
     const app = express(); 
     let RedisStore = connectRedis(session);
-    let redisClient = new Redis(); //On deploy add this process.env.REDIS_URL
+    let redisClient = new Redis(process.env.REDIS_URL); //On deploy add this process.env.REDIS_URL
     app.set("proxy", 1);
 
     app.use(cors({origin: process.env.CORS_ORIGIN, credentials: true}));
