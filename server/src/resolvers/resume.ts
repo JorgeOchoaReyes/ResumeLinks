@@ -217,8 +217,7 @@ export class ResumeResolver {
 
     @Query(() => ResumeOutput, {nullable: true})
     async findResume(
-        @Arg("_id") id: number,
-        @Ctx() {req}: MyContext
+        @Arg("_id") id: number
         ): Promise<ResumeOutput | undefined> {
 
             let fullResume = await Resume.findOne({
