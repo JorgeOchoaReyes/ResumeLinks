@@ -3,8 +3,7 @@ import 'dotenv-safe/config';
 import {COOKIE_NAME, __prod__} from "./constants";
 import express from "express";
 import {ApolloServer} from 'apollo-server-express';
-import {buildSchema} from 'type-graphql';
-import {PostResolver} from './resolvers/post'; 
+import {buildSchema} from 'type-graphql'
 import {ResumeResolver} from './resolvers/resume'; 
 import {UserResolver} from './resolvers/user'; 
 import Redis from 'ioredis';
@@ -14,22 +13,13 @@ import cors from 'cors';
 import { ApolloServerPluginLandingPageGraphQLPlayground,
     ApolloServerPluginLandingPageDisabled } from 'apollo-server-core';
 import { mydataSource } from "./dataSource";
-import { User } from "./entities/User";
-import { Resume } from "./entities/Resume";
-import { Experience } from "./entities/Experience";
-import { Education } from "./entities/Education";
 require('dotenv-safe').config();
-
+ 
 const main = async () => {
         
     let connection = await mydataSource.initialize();
     connection.runMigrations();
-    // await User.delete({})
-    // await Experience.delete({})
-    // await Education.delete({})
-    // await Resume.delete({})
  
-
     const app = express(); 
     let RedisStore = connectRedis(session);
     let redisClient = new Redis(); //On deploy add this process.env.REDIS_URL
@@ -67,7 +57,7 @@ const main = async () => {
  
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [ResumeResolver, PostResolver, UserResolver],
+            resolvers: [ResumeResolver, UserResolver],
             validate: false
         }),
         plugins: [
